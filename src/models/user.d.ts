@@ -13,5 +13,6 @@ export type UserType = {
     userRole?: number;
     validateCode?: string;
     tags: string[];
+    userProfile?: string;
     createTime?: Date;
 };

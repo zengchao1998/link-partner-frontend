@@ -24,7 +24,6 @@
 </template>
 
 <script setup>
-import {showToast} from "vant";
 import {useRouter} from "vue-router";
 
 const router = useRouter();
@@ -36,9 +35,10 @@ const onClickLeft = () => {
 const onClickRight = () => {
   router.push('/search');
 }
-const onChange = () => showToast();
 </script>
 
 <style scoped>
-
+#content {
+  padding-bottom: 50px;
+}
 </style>

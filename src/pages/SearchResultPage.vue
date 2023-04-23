@@ -1,26 +1,25 @@
 <template>
   <user-card-list :user-list="userList" />
-  <van-empty v-if="!userList || userList.length === 0" description="数据为空"></van-empty>
+  <van-empty v-if="!userList || userList.length === 0" description="搜索结果为空"></van-empty>
 </template>
 
 <script setup>
-import {useRoute, } from "vue-router";
+import {useRoute } from "vue-router";
 import {onMounted, ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
 import qs from "qs";
-import {showFailToast} from "vant";
 import UserCardList from "../components/UserCardList.vue";
 
 const route = useRoute();
+const { tags } = route.query;
 const userList = ref([]);
 
 // 页面加载时从远程获取数据
 onMounted(async () => {
 
-  const userListData = await myAxios.get('/user/recommend', {
+  const userListData = await myAxios.get('/user/search/tags', {
     params: {
-      pageNum: 1,
-      pageSize: 8,
+      tagsNameList: tags
     },
     // 对参数进行序列化处理
     paramsSerializer: params => {
@@ -28,12 +27,11 @@ onMounted(async () => {
     }
   })
       .then(function (response) {
-        console.log('/user/recommend succeed' + response);
-        return response?.data?.records;
+        console.log('/user/search/tags succeed' + response);
+        return response?.data;
       })
       .catch(function (error) {
-        showFailToast('请求失败')
-        console.log('/user/recommend error' + error);
+        console.log('/user/search/tags error' + error);
       })
 
   if(userListData) {
@@ -45,6 +43,7 @@ onMounted(async () => {
     userList.value = userListData;
   }
 })
+
 </script>
 
 <style scoped>
