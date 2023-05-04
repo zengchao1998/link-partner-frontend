@@ -1,6 +1,6 @@
 <template>
   <van-nav-bar
-      title="标题"
+      :title="title"
       right-text="按钮"
       left-arrow
       @click-left="onClickLeft"
@@ -23,10 +23,23 @@
   </van-tabbar>
 </template>
 
-<script setup>
-import {useRouter} from "vue-router";
+<script setup lang="ts">
+import {useRoute, useRouter} from "vue-router";
+import {ref} from "vue";
+import routes from "../config/route";
 
 const router = useRouter();
+const DEFAULT_TITLE = 'Link-Partner';
+const title = ref(DEFAULT_TITLE)
+
+// 动态改变导航栏标题
+router.beforeEach((to, from) => {
+  const toPath = to.path;
+  const route = routes.find((route) => {
+    return toPath == route.path;
+  })
+  title.value = route?.title ?? DEFAULT_TITLE;
+})
 
 const onClickLeft = () => {
   // 返回上一个页面

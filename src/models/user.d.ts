@@ -2,7 +2,7 @@
  * 用户类别
  */
 export type UserType = {
-    id?: string;
+    id?: number;
     username?: string;
     userAccount?: string;
     avatarUrl?: string;
@@ -16,3 +16,6 @@ export type UserType = {
     userProfile?: string;
     createTime?: Date;
 };
+
+export class TeamType {
+}

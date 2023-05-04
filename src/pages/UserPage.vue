@@ -1,27 +1,21 @@
 <template>
   <template v-if="user">
-    <van-cell title="用户名" is-link to="user/edit" :value="user.username"
-              @click="toEdit('username', '用户名', user.username)"/>
-    <van-cell title="用户账号" :value="user.userAccount"/>
-    <van-cell title="头像" is-link to="user/edit"
-              @click="toEdit('avatarUrl', '头像', user.avatarUrl)">
-      <img style="height: 40px" :src="user.avatarUrl" />
-    </van-cell>
-    <van-cell title="性别" is-link to="user/edit" :value="user.gender"
-              @click="toEdit('gender', '性别', user.gender)"/>
-    <van-cell title="电话" is-link to="user/edit" :value="user.phone"
-              @click="toEdit('phone', '电话', user.phone)"/>
-    <van-cell title="邮箱" is-link to="user/edit" :value="user.email"
-              @click="toEdit('email', '邮箱', user.email)"/>
-    <van-cell title="验证编号" :value="user.validateCode"/>
-    <van-cell title="注册时间" :value="user.createTime"/>
+    <van-cell title="当前用户" :value="user?.username" />
+    <van-cell title="修改个人信息" is-link to="/user/update" />
+    <van-cell title="我加入的队伍" is-link to="/team/joined" />
+    <van-cell title="我创建的队伍" is-link to="/team/owner" />
   </template>
+  <van-button id="logout-button" round block type="primary" @click="doLoginOut">
+    退出登录
+  </van-button>
 </template>
 
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import {getCurrentUser} from "../services/user";
+import myAxios from "../plugins/myAxios";
+import {showFailToast} from "vant";
 
 const user = ref();
 
@@ -40,6 +34,16 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
       currentValue,
     }
   })
+}
+
+const doLoginOut = async () => {
+  const res = await myAxios.post('/user/logout')
+  // @ts-ignore
+  if (res.code === 0) {
+    router.replace('/user/login');
+  } else {
+    showFailToast("登出失败")
+  }
 }
 </script>
 

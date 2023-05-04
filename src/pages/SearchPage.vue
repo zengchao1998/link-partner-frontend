@@ -32,7 +32,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import {useRouter} from "vue-router";
 
@@ -71,7 +71,7 @@ const originTagList = [
 let tagList = ref(originTagList);
 
 // 搜索指定标签
-const onSearch = (val) => {
+const onSearch = (val: any) => {
   tagList.value = originTagList.map(parentTag => {
         const tempChildren = [...parentTag.children];
         const tempParentTag = {...parentTag};
@@ -87,7 +87,7 @@ const onCancel = () => {
 }
 
 // 移除选中标签
-const doClose = (tag) => {
+const doClose = (tag: any) => {
   activeIds.value = activeIds.value.filter(item => {
     return item !== tag;
   })

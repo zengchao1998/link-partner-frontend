@@ -16,13 +16,24 @@
           placeholder="请输入密码"
           :rules="[{ required: true, message: '请填写密码' }]"
       />
+      <van-field
+          v-model="checkPassword"
+          type="password"
+          name="checkPassword"
+          label="密码"
+          placeholder="请重复输入密码"
+          :rules="[{ required: true, message: '请填写重复密码' }]"
+      />
+      <van-field
+          v-model="validateCode"
+          name="validateCode"
+          label="验证码"
+          placeholder="请输入验证码"
+          :rules="[{ required: true, message: '请填写验证码' }]"
+      />
     </van-cell-group>
     <div style="margin: 16px;">
       <van-button round block type="primary" native-type="submit">
-        登录
-      </van-button>
-      <div style="margin: 10px"></div>
-      <van-button round block type="primary" @click="doRegister">
         注册
       </van-button>
     </div>
@@ -31,35 +42,32 @@
 </template>
 
 <script setup lang="ts">
-import {useRoute, useRouter} from "vue-router";
+import { useRouter} from "vue-router";
 import myAxios from "../plugins/myAxios";
 import {ref} from "vue";
 import {showFailToast, showSuccessToast} from "vant";
 
 const router = useRouter();
-const route = useRoute();
 const userAccount = ref('');
 const userPassword = ref('');
+const checkPassword = ref('');
+const validateCode = ref('');
 
 const onSubmit = async () => {
-  const res = await myAxios.post('/user/login', {
+  const res = await myAxios.post('/user/register', {
     userAccount: userAccount.value,
     userPassword: userPassword.value,
+    checkPassword: checkPassword.value,
+    validateCode: validateCode.value,
   })
   // @ts-ignore
-  if (res.code === 0 && res.data) {
-    window.location.href = route.query?.redirect as string ?? '/';
-    showSuccessToast("登录成功");
+  if(res.code === 0 && res.data) {
+    router.replace("/user/login");
+    showSuccessToast("注册成功");
   } else {
-    showFailToast("登录失败")
+    showFailToast("注册失败")
   }
 };
-
-const doRegister = async () => {
-  router.push({
-    path: '/user/register',
-  })
-}
 
 </script>
 
