@@ -12,6 +12,7 @@ import UserUpdatePage from "../pages/UserUpdatePage.vue";
 import TeamJoinedPage from "../pages/TeamJoinedPage.vue";
 import TeamOwnerPage from "../pages/TeamOwnerPage.vue";
 import UserRegisterPage from "../pages/UserRegisterPage.vue";
+import UserEditTagsPage from "../pages/UserEditTagsPage.vue";
 
 const routes = [
     {path: '/', title: "主页", component: Index},
@@ -19,6 +20,7 @@ const routes = [
     {path: '/user', title: "用户信息", component: UserPage},
     {path: '/search', title: "搜索用户", component: SearchPage},
     {path: '/user/edit', title: "编辑用户信息", component: UserEditPage},
+    {path: '/user/edit/tags', title: "更新用户标签", component: UserEditTagsPage},
     {path: '/user/list', title: "用户列表", component: SearchResultPage},
     {path: '/user/login', title: "登录", component: UserLoginPage},
     {path: '/user/register', title: "注册", component: UserRegisterPage},

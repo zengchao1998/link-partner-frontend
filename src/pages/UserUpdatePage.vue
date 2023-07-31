@@ -13,6 +13,8 @@
               @click="toEdit('phone', '电话', user.phone)"/>
     <van-cell title="邮箱" is-link to="user/edit" :value="user.email"
               @click="toEdit('email', '邮箱', user.email)"/>
+    <van-cell title="标签" is-link to="user/edit" :value="user.tags"
+              @click="toEditTags('tags', '标签', user.tags)"/>
     <van-cell title="验证编号" :value="user.validateCode"/>
     <van-cell title="注册时间" :value="user.createTime"/>
   </template>
@@ -41,6 +43,19 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
     }
   })
 }
+
+const toEditTags = (editKey: string, editName: string, currentValue: string) => {
+  router.push({
+    path: '/user/edit/tags',
+    query: {
+      editKey,
+      editName,
+      currentValue,
+    }
+  })
+}
+
+
 </script>
 
 <style scoped>

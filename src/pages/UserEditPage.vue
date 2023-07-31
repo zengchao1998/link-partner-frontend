@@ -49,7 +49,7 @@ const onSubmit = async () => {
   // @ts-ignore
   if(res.code === 0 && res.data > 0) {
     showSuccessToast("修改成功")
-    await router.push('/user')
+    await router.push('/user/update')
   } else {
     showFailToast('修改失败')
   }

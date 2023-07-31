@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import {useRouter} from "vue-router";
+import {originTagList} from "../constants/label";
 
 const router = useRouter();
 // 搜索框内容
@@ -43,30 +44,6 @@ const searchText = ref('');
 // 已选标签
 const activeIds = ref([]);
 const activeIndex = ref();
-
-// 标签列表
-const originTagList = [
-  {
-    text: '性别',
-    children: [
-      { text: '男', id: '男' },
-      { text: '女', id: '女' },
-    ],
-  },
-  {
-    text: '年级',
-    children: [
-      { text: '大一', id: '大一' },
-      { text: '大二', id: '大二' },
-      { text: '大三', id: '大三' },
-      { text: '大四', id: '大四' },
-      { text: '研一', id: '研一' },
-      { text: '研二', id: '研二' },
-      { text: '研三', id: '研三' },
-      { text: '博士', id: '博士' },
-    ],
-  },
-]
 
 let tagList = ref(originTagList);
 
